@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styles from './Map.module.css';
 import {
   MapContainer,
@@ -23,7 +23,7 @@ const Map = () => {
   } = useGeolocation();
 
   const [mapLat, mapLng] = useUrlPosition();
-  const [mapPosition, setMapPosition] = useState([40, 0]);
+  const [mapPosition, setMapPosition] = useState([39.96, -82.99]);
 
   // Synchronize the map position with the URL query parameters
   useEffect(() => {
