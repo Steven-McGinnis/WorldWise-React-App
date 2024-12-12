@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useReducer, useEffect } from 'react';
 
 const AuthContext = createContext();
 
@@ -10,12 +10,14 @@ const initialState = {
 function reducer(state, action) {
   switch (action.type) {
     case 'login':
+      console.log('action.payload', action.payload);
       return {
         ...state,
         isAuthenticated: true,
         user: action.payload,
       };
     case 'logout':
+      console.log('logout');
       return {
         ...state,
         isAuthenticated: false,
@@ -43,11 +45,16 @@ function AuthProvider({ children }) {
     if (email === FAKE_USER.email && password === FAKE_USER.password) {
       dispatch({ type: 'login', payload: FAKE_USER });
     }
+    console.log('state', user);
   }
 
   function logout() {
     dispatch({ type: 'logout' });
   }
+
+  useEffect(() => {
+    console.log('User state updated:', user);
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
